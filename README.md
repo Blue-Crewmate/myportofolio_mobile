@@ -53,3 +53,28 @@ samples, guidance on mobile development, and a full API reference.
 #### AI Disclosure
 
 Selama pengerjaan tugas 7 ini, saya tidak menggunakan AI apapun. Saya hanya menggunakan tutorial yang diberikan di pbp.cs.ui.ac.id, slides materi di SCELE, serta dokumentasi Flutter.
+
+### Tugas 8
+
+1. Perbedaan antara `Navigator.push()`, `Navigator.pushReplacement()`, dan `Navigator.pop()` adalah `Navigator.push()` menambahkan route kedalam stack route, `Navigator.pushReplacement()` mengubah route teratas pada stack route, sedangkan `Navigator.pop()` mengeluarkan route teratas pada stack route. Terlihat dari UI, push() dan pushReplacement() mengubah halaman aplikasi, sedangkan pop() menunjukan halaman aplikasi sebelumnya. Pada project_card, `Navigator.push()` digunakan untuk membuka formulir. Di left_drawer, opsi **Home** menggunakan `Navigator.pushReplacement()`, sehingga tidak penambahan route pada stack route. Dengan metode tersebut, route ke halaman **Home** hanya menggantikan halaman yang sedang terlihat pada aplikasi (tidak menumpuk).
+
+2. Penggunaan `Scaffold`, `AppBar`, dan `Drawer` berguna untuk menjaga struktur halaman tetap konsisten. `Scaffold` berfungsi sebagai kerangka dasar dari halaman agar tata letak tombol dan widget tidak terpotong oleh layar. `AppBar` berfungsi sebagai header yang dapat menjaga posisi Judul dan Drawer agar tetap konsisten walaupun halaman utamnya berubah. `Drawer` sendiri berfungsi untuk mempermudah perpindahan halaman tanpa perlu kembali ke **Home**. Satu contoh penggunaan warna tema portofolio di lebih dari satu halaman adalah warna background yang digunakan pada menu dan project_form. 
+
+3. project_form dan experience_form menggunakan Widget SingleChildScrollView agar formulir dapat di-*scroll* saat ukuran layar terbatas dan Padding untuk mengatur jarak antar input field. SingleChildScrollView adalah widget yang dapat menampung widget lainnya sehingga dapat diimplementasikan fitur *scroll*. Hal ini berguna saat ukuran ponsel user tidak cukup untuk menampilkan semua input field dari formulir. Di sisi lain, Padding digunakan untuk memberikan jarak antar input field agar terlihat lebih jelas. Alhasil, input field tidak saling menumpuk dan dapat diisi secara terpisah. 
+
+4. `GlobalKey<FormState>` menyimpan form ID agar button Simpan dapat menjalankan fungsi `validate()` yang akan memeriksa semua `validator` (jika ada) pada setiap input field pada saat ditekan lalu menyimpan data yang sudah diisi. `validator` berfungsi untuk membatasi bentuk input seperti apa yang boleh dimasukkan ke dalam formulir, sedangkan `validate()` memeriksa semua input yang telah dimasukkan dengan `validator` yang sudah ditetapkan dan mengembalikan hasil boolean `true` atau `false`.
+
+#### AI Disclosure
+
+Pada pengerjaan tugas 8 ini, saya menggunakan Gemini dan Copilot. Saya menggunakan Gemini untuk memahami lebih jelas penggunaan dari `GlobalKey<FormState>`. Di sisi lain, saya menggunakan Copilot untuk membantu saya dalam penerapan fungsi `_selectEndedAtDate` pada experience_form. Walaupun mendapatkan bantuan dari AI, saya tetap mencoba untuk memahami mengapa Copilot menggunakan Future sebagai return value dari date selector. Selain mendapatkan jawaban dari AI, saya mencoba membaca dokumentasi Flutter mengenai Future class yang penerapannya seperti fungsi `async` dan `await` dari JavaScript. 
+
+Prompt Gemini:
+> https://share.gemini.google/bw5z0ZVIDAV5
+
+Prompt Copilot:
+> why does select date use Future and not just normal string return value?
+
+Hasil prompt Copilot:
+> showDatePicker() is asynchronous because it opens a dialog and waits for the user to choose a date. The function can’t return a String immediately—the date doesn’t exist yet—so Flutter returns a Future<DateTime?> that completes later. The value is null if the user cancels.
+>
+> _selectEndedAtDate() is Future<void> because it awaits that result, then updates the field and state. It doesn’t return the date to its caller; it handles the selection itself. You could instead declare it as Future<String?> and return the formatted date, but the caller would still need to await it.
