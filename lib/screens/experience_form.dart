@@ -10,7 +10,7 @@ class ExperienceFormPage extends StatefulWidget {
 
 class _ExperienceFormPageState extends State<ExperienceFormPage> {
   final _formKey = GlobalKey<FormState>();
-  
+
   String _experienceName = "";
   String _description = "";
   String _category = "Internship"; // default
@@ -59,11 +59,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Add Experience Form',
-          ),
-        ),
+        title: const Center(child: Text('Add Experience Form')),
         backgroundColor: Colors.indigo,
         foregroundColor: Colors.white,
       ),
@@ -74,7 +70,6 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               // === Experience Name ===
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -138,10 +133,12 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                   ),
                   initialValue: _category,
                   items: _categories
-                      .map((category) => DropdownMenuItem(
-                            value: category,
-                            child: Text(category),
-                          ))
+                      .map(
+                        (category) => DropdownMenuItem(
+                          value: category,
+                          child: Text(category),
+                        ),
+                      )
                       .toList(),
                   onChanged: (String? newValue) {
                     setState(() {
@@ -190,7 +187,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                   },
                 ),
               ),
-              
+
               // === Tombol Simpan ===
               Align(
                 alignment: Alignment.bottomCenter,
@@ -198,8 +195,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor:
-                          WidgetStateProperty.all(Colors.indigo),
+                      backgroundColor: WidgetStateProperty.all(Colors.indigo),
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -207,7 +203,9 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: const Text('Pengalaman berhasil ditambahkan!'),
+                              title: const Text(
+                                'Pengalaman berhasil ditambahkan!',
+                              ),
                               content: SingleChildScrollView(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
